@@ -48,10 +48,10 @@ body {
   display : block;
 }
 
-.square.clicked.odd{
-  background-color: bisque;
+.square.clicked.odd {
+  background-color: rgb(71, 82, 238);
 }
 
 .square.clicked.even {
-  /* background-color: aqua; */
+  background-color: rgb(255, 94, 0);
 }

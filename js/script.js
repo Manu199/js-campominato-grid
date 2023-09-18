@@ -8,68 +8,80 @@
 */
 
 const container = document.querySelector('.container');
+    const numbersBlacklist = [];
 
-reset();
+    reset();
 
-// init();
+    function init() {
+      for (let i = 1; i <= 100; i++) {
+        const randomNumber = getUniqueRandomNumber(1, 100);
+        const square = createSquare(randomNumber);
 
-function init() {
-for (let i = 1; i <= 100; i++) {
+        square.addEventListener('click', function () {
+          console.log(this._squareID);
+          this.classList.toggle('clicked');
+          this.classList.toggle(oddEven(this._squareID));
 
-  // const RandomNumber = getUniqueRandomNumber();
-  // const square = createsqaure(randomNumber);
+        });
 
-  const square = creareSquare(i);
+        container.append(square);
+      }
+    }
 
-  square.addEventListener('click',function(i) {
+    function oddEven(id) {
+      if (id % 2) return 'odd';
+      else return 'even';
+    }
+    
 
-    console.log(this);
+    function createSquare(index) {
 
-    console.log(this._squareID);
+    /*
+      1. crea l'elemento 
+      2. gli aggiungoi la classe square
+      3. restituisco l'elemento creato
 
-    this.classList.add('clicked');
-    this.classList.add(oddEven(this._squareID));
+    */
 
-  })  
-  container.append(square);
-}
-}
+      const newSquare = document.createElement('div');
+      newSquare.className = 'square';
+      newSquare._squareID = index;
+      newSquare.innerHTML = `<span>${index}</span>`;
+      return newSquare;
+    }
 
-function oddEven(id) {
-  if(id % 2) return 'odd';
-  else return 'even';
-}
+    function reset() {
+      container.innerHTML = '';
+      const btnStart = generateBtnStart();
+      container.append(btnStart);
+    }
 
+    function generateBtnStart() {
+      const btn = document.createElement('button');
+      btn.innerHTML = 'START';
+      btn.addEventListener('click', function () {
+        container.innerHTML = '';
+        numbersBlacklist.length = 0; 
+        init();
+      });
+      return btn;
+    }
 
+    function getUniqueRandomNumber(min, max) {
+      let randomNumber;
+      let isValidNumber = false;
 
+      while (!isValidNumber) {
+        randomNumber = getRandomNumber(min, max);
+        if (!numbersBlacklist.includes(randomNumber)) {
+          numbersBlacklist.push(randomNumber);
+          isValidNumber = true;
+        }
+      }
 
-function creareSquare(index){
-  /*
-    1. crea l'elemento 
-    2. gli aggiungoi la classe square
-    3. restituisco l'elemento creato
+      return randomNumber;
+    }
 
-  */
-
-  const newSquare = document.createElement('div');
-  newSquare.className = 'square';
-  // newSquare._sqauareID = index;
-  newSquare.innerHTML = `<span>${index}</span>`;
-  return newSquare;
-}
-
-function reset (){
-  container.innerHTML = '';
-  const btnStart = generateBtnStart();
-  container.append(btnStart);
-}
-
-function generateBtnStart() {
-  const btn = document.createElement('button');
-  btn.innerHTML = 'START';
-  btn.addEventListener('click',function(){
-    container.innerHTML = '';
-    init();
-  });
-  return btn;
-}
+    function getRandomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
