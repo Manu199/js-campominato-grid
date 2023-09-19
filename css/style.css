@@ -7,12 +7,38 @@
 body {
   font-family: monospace;
 }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100px;
+}
+
+.header-left{
+  width: 33%;
+}
+
+.header-center{
+  width: 33%;
+  
+}
+
+.header-right{
+  width: 33%;
+  align-self: flex-end;
+}
+.header-right select{
+  width: 150px;
+}
+
 .main-wrapper {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: cadetblue;
+  flex-direction: column;
 }
 
 .container {
