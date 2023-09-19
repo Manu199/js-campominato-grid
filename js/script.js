@@ -7,7 +7,7 @@
 
 */
 
-const container = document.querySelector('.container');
+const main = document.querySelector('.container');
 const numbersBlacklist = [];
 const playBtn = document.querySelector( '#play')
 const levelSelect = document.querySelector('#griglia')
@@ -23,16 +23,37 @@ const levels = [100, 81, 49]
     console.log('PLAY');
     cellNumbers = levels[levelSelect.value];
     reset();
-    init();
+    generatePlayGround();
   }
 
 
-  function generatePlayGround()
+  function generatePlayGround(){
 
+    const grid = document.createElement('div');
+    grid.classList = 'grid';
 
+    for(let i = 0; i < cellNumbers; i++){
+      const cell = createCell(i);
+      grid.appendChild(cell);
+    }
 
+  main.append(grid)
+  }
 
+    function createCell(index){
+      const cell = document.createElement('div');
+      cell.className = 'cell';
+      cell.classList.add('square' + cellNumbers);
+      cell._cellID = index;
+      cell.addEventListener('click',  hendleClickCell)
 
+      return cell;
+    }
+
+    function hendleClickCell(){
+      this.classList.add('clicked')
+      console.log(this._cellID);
+    }
 
     // function init() {
     //   for (let i = 1; i <= 100; i++) {
@@ -70,20 +91,20 @@ const levels = [100, 81, 49]
     // }
 
     function reset() {
-      container.innerHTML = '';
-      const btnStart = generateBtnStart();
-      container.append(btnStart);
+      main.innerHTML = '';
+      // const btnStart = generateBtnStart();
+      // main.append(btnStart);
     }
 
-    function generateBtnStart() {
-      const btn = document.createElement('button');
-      btn.innerHTML = 'START';
-      btn.addEventListener('click', function () {
-        container.innerHTML = '';
-        numbersBlacklist.length = 0; 
-        init();
-      });
-      return btn;
-    }
+    // function generateBtnStart() {
+    //   const btn = document.createElement('button');
+    //   btn.innerHTML = 'START';
+    //   btn.addEventListener('click', function () {
+    //     main.innerHTML = '';
+    //     numbersBlacklist.length = 0; 
+    //     generatePlayGround();
+    //   });
+    //   return btn;
+    // }
 
   
